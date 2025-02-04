@@ -179,13 +179,38 @@ int sumNodes(Node* root)
 }
 
 
+/*
+=======================================================================================================
+05. Diameter of  Binary Tree
+
+    It is the longest path between two nodes in a tree
+=======================================================================================================
+*/
+
+//Method 1: O(n)
+
+int diameterOFTree1(Node * root)
+{
+    if(root==NULL) return 0;
+
+    //currHeight will carry condition in which the diameter is passing through root. 
+    // in this case diameter is height for left and right + 1
+    int CurrHeight = treeHeight(root->left) + treeHeight(root->right)+1;
+
+    int leftHeight = diameterOFTree1(root->left);
+    int rightHeight = diameterOFTree1(root->right);
+
+    return (max(CurrHeight, max(leftHeight , rightHeight)));
+}
+
+
 int main()
 {
 
     vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
     Node *root = buildTree(nodes);
 
-    cout << "sum of all nodes  :"<< sumNodes(root)<<endl;
+    cout << "diameter :"<< diameterOFTree1(root)<<endl;
 
     return 0;
 }
