@@ -187,7 +187,7 @@ int sumNodes(Node* root)
 =======================================================================================================
 */
 
-//Method 1: O(n)
+//Method 1: O(N*N)
 
 int diameterOFTree1(Node * root)
 {
@@ -203,6 +203,24 @@ int diameterOFTree1(Node * root)
     return (max(CurrHeight, max(leftHeight , rightHeight)));
 }
 
+//Method 2 : 0(N)
+
+pair<int,int>diam2(Node* root)
+{
+    if(root == NULL) return make_pair(0,0);
+
+    pair<int,int>leftInfo = diam2(root->left);
+    pair<int,int>rightInfo = diam2(root->right);
+
+    int currDiam = leftInfo.second + rightInfo.second + 1;
+
+    int finalDiam = max(currDiam , max(leftInfo.first , rightInfo.second));
+
+    int finalHeight = max(leftInfo.second , rightInfo.second)+1;
+
+    return make_pair(finalDiam, finalHeight);
+}
+
 
 int main()
 {
@@ -210,7 +228,7 @@ int main()
     vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
     Node *root = buildTree(nodes);
 
-    cout << "diameter :"<< diameterOFTree1(root)<<endl;
+    cout << "diameter :" << diam2(root).first<<endl;
 
     return 0;
 }
