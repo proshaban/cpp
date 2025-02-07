@@ -222,13 +222,65 @@ pair<int,int>diam2(Node* root)
 }
 
 
+/*
+=======================================================================================================
+05. Is Tree - B is a sub-tree of Tree - A
+
+
+    a. Find subRoot in main Tree
+    b. if subRoot is found then check for identical else find for left & right root
+=======================================================================================================
+*/
+
+
+bool isIdentical(Node* root1, Node* root2) {
+    if (root1 == NULL && root2 == NULL) return true;
+    if (root1 == NULL || root2 == NULL) return false;
+    if (root1->data != root2->data) return false;
+
+    return isIdentical(root1->left, root2->left) && isIdentical(root1->right, root2->right);
+}
+
+
+bool isSubTree(Node* root, Node* subRoot)
+{
+
+    if(root==NULL && subRoot == NULL ) return true;
+
+    if(root == NULL || subRoot == NULL ) return false;
+
+    if(root->data == subRoot->data)
+    {
+        //check for identical
+
+        if(isIdentical(root, subRoot))
+        {
+            return true;
+        }
+    }
+
+    bool checkLeft = isSubTree(root->left, subRoot);
+    if(!checkLeft)
+    {
+        return isSubTree(root->right , subRoot);
+    }
+
+    return true; 
+}
+
+
 int main()
 {
 
     vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
     Node *root = buildTree(nodes);
 
-    cout << "diameter :" << diam2(root).first<<endl;
+    Node *subRoot = new Node(2);
+    subRoot->left = new Node(4);
+    subRoot->right = new Node(5);
+
+
+    cout << "is sub tree ?  :" << isSubTree(root, subRoot)<<endl;
 
     return 0;
 }
