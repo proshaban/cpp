@@ -224,7 +224,7 @@ pair<int,int>diam2(Node* root)
 
 /*
 =======================================================================================================
-05. Is Tree - B is a sub-tree of Tree - A
+06. Is Tree - B is a sub-tree of Tree - A
 
 
     a. Find subRoot in main Tree
@@ -266,6 +266,57 @@ bool isSubTree(Node* root, Node* subRoot)
     }
 
     return true; 
+}
+
+
+/*
+=======================================================================================================
+06. TOp view of binary tree 
+=======================================================================================================
+*/
+
+void topView(Node* root)
+{
+    queue<pair<Node * , int>> Q;
+    map<int,int>mp;
+
+    Q.push(make_pair(root, 0));
+
+    while(!Q.empty())
+    {
+        pair<Node* , int > curr = Q.front();
+        Q.pop();
+
+        Node* currNode = curr.first;
+        int currHD = curr.second;
+
+        if(mp.count(currHD)==0) 
+            mp[currHD] = currNode->data;
+
+        /*
+            if we wanted to store bottom view
+            mp[currHD] = currNode->data;
+        */
+        
+        if(currNode->left != NULL) 
+        {
+            pair<Node * , int> left = make_pair(currNode->left , currHD-1);
+            Q.push(left);
+        }
+
+        if(currNode->left != NULL) 
+        {
+            pair<Node * , int> right = make_pair(currNode->right , currHD-1);
+            Q.push(right);
+        }
+    }
+
+    //print data
+    for(auto i: mp)
+    {
+        cout<<i.second<<" ";
+    }
+    cout<<endl;
 }
 
 
