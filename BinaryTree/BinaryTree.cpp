@@ -326,12 +326,10 @@ int main()
     vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
     Node *root = buildTree(nodes);
 
-    Node *subRoot = new Node(2);
-    subRoot->left = new Node(4);
-    subRoot->right = new Node(5);
 
+    cout << " top view of tree :" <<endl;
 
-    cout << "is sub tree ?  :" << isSubTree(root, subRoot)<<endl;
+    topView(root);
 
     return 0;
 }
