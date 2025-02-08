@@ -320,6 +320,34 @@ void topView(Node* root)
 }
 
 
+/*
+=======================================================================================================
+07. K-th level  elements
+    Print all elements at K Level
+=======================================================================================================
+*/
+
+void kThLevel(Node* root , int K , int currLevel)
+{
+    if(root== NULL) return;
+
+    if(K == currLevel)
+    {
+        cout<<root->data <<" ";
+        return;
+    }
+
+    kThLevel(root->left , K , currLevel+1);
+    kThLevel(root->right , K , currLevel+1);
+}
+
+void printKLevel(Node* root,int K)
+{
+    kThLevel(root, K , 1);
+    cout<<endl;
+}
+
+
 int main()
 {
 
@@ -327,9 +355,9 @@ int main()
     Node *root = buildTree(nodes);
 
 
-    cout << " top view of tree :" <<endl;
+    cout << " Print elements at level 3  :" <<endl;
 
-    topView(root);
+    printKLevel(root, 3);
 
     return 0;
 }
