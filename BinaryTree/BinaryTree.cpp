@@ -348,16 +348,86 @@ void printKLevel(Node* root,int K)
 }
 
 
+
+/*
+=======================================================================================================
+08. LCA (Lowest Common Ancestor)
+    Find LCA of two nodes
+=======================================================================================================
+*/
+
+
+// Method 1 LCA1()
+bool rootToNodePath(Node* root, int n, vector<int>&path)
+{
+    if(root == NULL )
+    {
+        return false;
+    }
+
+    path.push_back(root->data);
+
+    //if we found that n
+    if(root->data == n) return true;
+
+    int isLeft = rootToNodePath(root->left , n, path);
+    int isRight = rootToNodePath(root->right, n, path);
+
+    //if we found n on left or right 
+    if(isLeft || isRight )
+    {
+        return true;
+    }
+
+    // remove path data , if we not found 
+    path.pop_back();
+    return false;
+}
+
+int LCA1(Node * root, int n1, int n2)
+{
+    vector<int>path1;
+    vector<int>path2;
+
+    rootToNodePath(root,n1,path1);
+    rootToNodePath(root,n2,path2);
+
+    int lca = -1;
+
+    for(int i=0 , j=0; i<path1.size() && j<path2.size(); i++, j++ )
+    {
+        if(path1[i]!=path2[j])
+        {
+            return lca;
+        }
+
+        lca = path1[i];
+    }
+
+    return lca;
+
+}
+
+
 int main()
 {
 
     vector<int> nodes = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
+    /*
+                1
+               / \
+              2   3 
+            /  \    \
+           4    5    6
+
+        {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1}
+                   
+    */
     Node *root = buildTree(nodes);
 
+    int n1 = 3, n2 = 4;
 
-    cout << " Print elements at level 3  :" <<endl;
-
-    printKLevel(root, 3);
+    cout << "Lowest common ancestor of "<<n1<<" and  "<< n2 << " is :"<< LCA1(root,n1,n2) <<endl;
 
     return 0;
 }
