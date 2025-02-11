@@ -431,6 +431,42 @@ Node* LCA2(Node* root, int n1, int n2)
 
 }
 
+
+/*
+=======================================================================================================
+09. Min distace between two nodes
+=======================================================================================================
+*/
+
+//Find LCA for both nodes 
+//calculate distance from LCA to these nodes
+// return sum of two nodes
+
+int distLCA(Node* root , int n)
+{
+    if (root==NULL) return -1;
+    
+    if(root->data == n) return 0;
+
+    int leftDist = distLCA(root->left , n);
+    if(leftDist != -1) return leftDist+1;
+
+    int rightDist = distLCA(root->right , n);
+    if(rightDist != -1) return rightDist+1;
+
+    return -1;
+}
+
+int distanceBtwNodes(Node * root  , int n1, int n2)
+{
+    Node* lca = LCA2(root, n1, n2);
+
+    int dist1 = distLCA(lca, n1);
+    int dist2 = distLCA(lca, n2);
+
+    return dist1+dist2;
+}
+
 int main()
 {
 
@@ -449,7 +485,7 @@ int main()
 
     int n1 = 5, n2 = 4;
 
-    cout << "Lowest common ancestor of "<<n1<<" and  "<< n2 << " is :"<< LCA2(root,n1,n2)->data <<endl;
+    cout << "Min distance between"<<n1<<" and  "<< n2 << " is :"<< distanceBtwNodes(root,n1,n2) <<endl;
 
     return 0;
 }
