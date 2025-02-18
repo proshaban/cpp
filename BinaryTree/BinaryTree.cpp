@@ -467,6 +467,31 @@ int distanceBtwNodes(Node * root  , int n1, int n2)
     return dist1+dist2;
 }
 
+/*
+=======================================================================================================
+10. K-th Ancestor
+=======================================================================================================
+*/
+
+int KthAnc(Node* root, int node, int k)
+{
+    if(root==NULL) return -1;
+
+    if(root->data == node ) return 0;
+
+    int leftDist = KthAnc(root->left , node , k);
+    int rightDist = KthAnc(root->right, node , k);
+
+    if(leftDist== -1 && rightDist == -1) return -1;
+
+    int validVal = leftDist == -1 ? rightDist : leftDist ;
+    
+    if(validVal +1  == k) 
+        cout<<"Kth Ancestor is : "<<root->data<<endl;
+    
+    return validVal+1;
+}
+
 int main()
 {
 
@@ -483,9 +508,10 @@ int main()
     */
     Node *root = buildTree(nodes);
 
-    int n1 = 5, n2 = 4;
+    int n1 = 5, n2 = 2;
 
-    cout << "Min distance between"<<n1<<" and  "<< n2 << " is :"<< distanceBtwNodes(root,n1,n2) <<endl;
+     KthAnc(root, n1, n2);
+    //
 
     return 0;
 }
