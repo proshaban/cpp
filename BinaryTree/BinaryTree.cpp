@@ -533,7 +533,9 @@ int main()
 
     int n1 = 5, n2 = 2;
 
-     KthAnc(root, n1, n2);
+     transform(root);
+
+     levelorder(root);
     //
 
     return 0;
