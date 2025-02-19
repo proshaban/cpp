@@ -511,7 +511,7 @@ int transform(Node* root)
     if(root->left !=NULL) root->data += root->left->data;
     if(root->right !=NULL) root->data += root->right->data;
 
-    return currOld
+    return currOld;
 
 }
 
