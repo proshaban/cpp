@@ -51,6 +51,7 @@ Node* buildBST(int arr[], int n)
     return root;
 } 
 
+
 /*
 =======================================================================================================
 2. Print Inorder 
@@ -68,10 +69,10 @@ void inorder(Node* root)
 
 int main()
 {
-    int arr[6]= {5, 1, 3, 4, 2, 7};
-    //int arr2[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
+    // arr[6]= {5, 1, 3, 4, 2, 7};
+    int arr2[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
 
-    Node* root = buildBST(arr,6);
+    Node* root = buildBST(arr2,6);
     inorder(root);
     cout<<endl;
 }
