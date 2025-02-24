@@ -67,12 +67,33 @@ void inorder(Node* root)
     inorder(root->right);
 }
 
+
+
+/*
+=======================================================================================================
+2. Serch if a key is presented 
+=======================================================================================================
+*/
+
+
+bool search(Node* root, int key)
+{
+    if(root == NULL) return false;
+
+    if(root->data == key ) return true;
+
+    if(root->data < key) return search(root->right,key);
+
+    else return search(root->left , key);
+}
+
 int main()
 {
     // arr[6]= {5, 1, 3, 4, 2, 7};
     int arr2[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
-
-    Node* root = buildBST(arr2,6);
-    inorder(root);
+    int key = 6;
+    Node* root = buildBST(arr2,9);
+    
+    cout<<"is key "<<6<<"presented in BST:"<<search(root,key)<<" ";
     cout<<endl;
 }
