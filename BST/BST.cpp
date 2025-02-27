@@ -71,7 +71,7 @@ void inorder(Node* root)
 
 /*
 =======================================================================================================
-2. Serch if a key is presented 
+3. Serch if a key is presented 
 =======================================================================================================
 */
 
@@ -90,7 +90,7 @@ bool search(Node* root, int key)
 
 /*
 =======================================================================================================
-3. Inorder Sucessor of a node. It's the left most node on right subtree
+4. Inorder Sucessor of a node. It's the left most node on right subtree
 ======================================================================================================
 */
 
@@ -105,7 +105,7 @@ Node* getInOrderSuccessor(Node* root)
 
 /*
 =======================================================================================================
-3. Delete a node in BST 
+4. Delete a node in BST 
 ======================================================================================================
 */
 
@@ -151,7 +151,7 @@ Node* delNode(Node* root, int val)
 
 /*
 =======================================================================================================
-3. Print in given range
+6. Print in given range
 ======================================================================================================
 */
 
@@ -171,12 +171,48 @@ void printIntRange(Node* root, int start , int end)
 }
 
 
+/*
+=======================================================================================================
+7. Print root to leaf paths  
+======================================================================================================
+*/
+
+void pathHelper(Node* root, vector<int>&path)
+{
+    if(root == NULL) return;
+    path.push_back(root->data);
+
+    //check if leaf node 
+    if(root->left == NULL && root->right == NULL )
+    {
+        //print path
+        for(auto i: path) cout<<i<<" ";
+        cout<<endl;
+        path.pop_back();
+        return;
+    }
+
+    pathHelper(root->left,path);
+    pathHelper(root->right,path);
+    
+    path.pop_back();
+}
+
+
+void rootToLeafPath(Node*root)
+{
+    vector<int>path;
+    pathHelper(root, path);
+}
+
 int main()
 {
     // arr[6]= {5, 1, 3, 4, 2, 7};
     int arr2[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
     int key = 6;
     Node* root = buildBST(arr2,9);
-    printIntRange(root,5,12);
+    
+    rootToLeafPath(root);
+
     cout<<endl;
 }
