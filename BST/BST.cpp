@@ -103,6 +103,12 @@ Node* getInOrderSuccessor(Node* root)
     return root;
 }
 
+/*
+=======================================================================================================
+3. Delete a node in BST 
+======================================================================================================
+*/
+
 Node* delNode(Node* root, int val)
 {
     if(root == NULL) return NULL;
@@ -143,17 +149,34 @@ Node* delNode(Node* root, int val)
 }
 
 
+/*
+=======================================================================================================
+3. Print in given range
+======================================================================================================
+*/
+
+void printIntRange(Node* root, int start , int end)
+{
+    if(root == NULL) return;
+
+    if(root->data >= start && root->data <= end)
+    {
+        cout<<root->data<<" ";
+        printIntRange(root->left, start, end);
+        printIntRange(root->right, start , end);
+    }
+    else if(root->data < start) printIntRange(root->right, start , end);
+
+    else printIntRange(root->left,start,end);
+}
+
+
 int main()
 {
     // arr[6]= {5, 1, 3, 4, 2, 7};
     int arr2[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
     int key = 6;
     Node* root = buildBST(arr2,9);
-    
-    inorder(root);
-    cout<<endl;
-
-    delNode(root,6);
-    inorder(root);
+    printIntRange(root,5,12);
     cout<<endl;
 }
