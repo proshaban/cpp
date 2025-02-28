@@ -54,7 +54,7 @@ Node* buildBST(int arr[], int n)
 
 /*
 =======================================================================================================
-2. Print Inorder 
+2. Print Inorder & preorder 
 =======================================================================================================
 */
 
@@ -67,6 +67,13 @@ void inorder(Node* root)
     inorder(root->right);
 }
 
+void preorder(Node* root)
+{
+    if(root == NULL) return;
+    cout<<root->data<<" ";
+    preorder(root->left);
+    preorder(root->right);
+}
 
 
 /*
@@ -199,6 +206,13 @@ void pathHelper(Node* root, vector<int>&path)
 }
 
 
+void rootToLeafPath(Node*root)
+{
+    vector<int>path;
+    pathHelper(root, path);
+}
+
+
 /*
 =======================================================================================================
 8. Validate BST 
@@ -225,20 +239,38 @@ bool isValidBST(Node * root)
 
 
 
-void rootToLeafPath(Node*root)
+/*
+=======================================================================================================
+9. Buid Balanced BST from Sorted Array  
+======================================================================================================
+*/
+
+Node* buildBSTFromSorted(int arr[], int st , int end)
 {
-    vector<int>path;
-    pathHelper(root, path);
+    if(st > end) return NULL;
+
+    int mid = st + (end-st) / 2;
+
+    Node* curr = new Node(arr[mid]);
+
+    curr->left = buildBSTFromSorted(arr, st , mid-1);
+    curr->right = buildBSTFromSorted(arr, mid+1, end);
+
+    return curr;
 }
+
+
 
 int main()
 {
     // arr[6]= {5, 1, 3, 4, 2, 7};
-    int arr2[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
-    int key = 6;
-    Node* root = buildBST(arr2,9);
+    //int arr2[9] = {8, 5, 3, 1, 4, 6, 10, 11, 14};
     
-    cout<<"is a valide BST : "<<isValidBST(root);
+    int arr[7]= {3, 4, 5, 6, 7, 8, 9};
+
+    Node* root = buildBSTFromSorted(arr,0,6);
+    
+    preorder(root);
 
     cout<<endl;
 }
