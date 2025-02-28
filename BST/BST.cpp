@@ -199,6 +199,32 @@ void pathHelper(Node* root, vector<int>&path)
 }
 
 
+/*
+=======================================================================================================
+8. Validate BST 
+======================================================================================================
+*/
+
+bool validateHelper(Node*root, Node*min, Node* max)
+{
+    if(root==NULL) return true;
+
+    if(min != NULL && root->data < min->data) return false;
+
+    if(max != NULL && root->data > max->data) return false;
+
+    return validateHelper(root->left, min, root) 
+    && validateHelper(root->right, root, max);
+
+}
+
+bool isValidBST(Node * root)
+{
+    return validateHelper(root, NULL, NULL);
+}
+
+
+
 void rootToLeafPath(Node*root)
 {
     vector<int>path;
@@ -212,7 +238,7 @@ int main()
     int key = 6;
     Node* root = buildBST(arr2,9);
     
-    rootToLeafPath(root);
+    cout<<"is a valide BST : "<<isValidBST(root);
 
     cout<<endl;
 }
