@@ -21,9 +21,36 @@ class Heap{
         }
     }
 
+    void heapify(int i ){ //i = prent index
+        if(i>=v.size())
+        {
+            return;
+        }
+
+        int l = 2*i+1;
+        int r = 2*i+2;
+        int maxIndex = i;
+        if(l<v.size() && v[l]>v[maxIndex])
+        {
+            maxIndex = l;
+        }
+        if(r<v.size() && v[r]>v[maxIndex])
+        {
+            maxIndex = r;
+        }
+
+        swap(v[i],v[maxIndex]);
+        if(maxIndex!=i)
+        {
+            heapify(maxIndex);
+        }
+    } 
+
     void pop()
     {
-
+        v[0] = v[v.size()-1];
+        v.pop_back();
+        heapify(0);
     }
 
     int top()
@@ -31,7 +58,7 @@ class Heap{
         return v[0];
     }
 
-    int empty()
+    bool empty()
     {
         return v.size()==0;
     }
@@ -44,6 +71,8 @@ int main()
     heap.push(5);
     heap.push(15);
     heap.push(25);
+    cout<<"Top of heap:"<<heap.top()<<endl;
+    heap.pop();
     cout<<"Top of heap:"<<heap.top()<<endl;
     return 0;
 }
