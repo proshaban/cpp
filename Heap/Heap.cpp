@@ -65,14 +65,50 @@ class Heap{
 
 };
 
+
+/*
+=======================================================================================================
+2. PQ for pairs / objects
+======================================================================================================
+*/
+
+class Students{
+    public:
+    string name;
+    int marks;
+    Students(string name, int marks)
+    {
+        this->name = name;
+        this->marks = marks;
+    }
+
+    //operator overloading
+    bool operator < (const Students &s) const
+    {
+        return this->marks<s.marks;
+    }
+
+};
+
 int main()
 {
-    Heap heap;
-    heap.push(5);
-    heap.push(15);
-    heap.push(25);
-    cout<<"Top of heap:"<<heap.top()<<endl;
-    heap.pop();
-    cout<<"Top of heap:"<<heap.top()<<endl;
+    priority_queue<Students>pq;
+    int n;
+    cin>>n; 
+    for(int i=0;i<n;i++)
+    {
+        string name;
+        int marks;
+        cin>>name>>marks;
+        Students s(name,marks);
+        pq.push(s);
+    }
+
+    while(!pq.empty())
+    {
+        Students s = pq.top();
+        cout<<s.name<<" "<<s.marks<<endl;
+        pq.pop();
+    }
     return 0;
 }
