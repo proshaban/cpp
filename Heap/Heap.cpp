@@ -68,7 +68,7 @@ class Heap{
 
 /*
 =======================================================================================================
-2. PQ for pairs / objects
+2. PQ for objects
 ======================================================================================================
 */
 
@@ -90,9 +90,24 @@ class Students{
 
 };
 
+
+/*
+=======================================================================================================
+3. PQ for pairs
+======================================================================================================
+*/
+
+struct comparePairs{
+    bool operator () (pair<string,int>&p1, pair<string,int>&p2)
+    {
+        return p1.second < p2.second;
+    }
+};
+
+
 int main()
 {
-    priority_queue<Students>pq;
+    priority_queue<pair<string,int>,vector<pair<string,int>>,comparePairs> pq;
     int n;
     cin>>n; 
     for(int i=0;i<n;i++)
@@ -100,14 +115,12 @@ int main()
         string name;
         int marks;
         cin>>name>>marks;
-        Students s(name,marks);
-        pq.push(s);
+        pq.push(make_pair(name,marks));
     }
 
     while(!pq.empty())
     {
-        Students s = pq.top();
-        cout<<s.name<<" "<<s.marks<<endl;
+        cout<<pq.top().first<<" "<<pq.top().second<<endl;
         pq.pop();
     }
     return 0;
