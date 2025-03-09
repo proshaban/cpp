@@ -105,23 +105,70 @@ struct comparePairs{
 };
 
 
-int main()
+/*
+=======================================================================================================
+4. Heap sort 
+======================================================================================================
+*/
+
+//heapify for heap sort 
+
+void heapify(int i , vector<int>&v, int n)
 {
-    priority_queue<pair<string,int>,vector<pair<string,int>>,comparePairs> pq;
-    int n;
-    cin>>n; 
-    for(int i=0;i<n;i++)
+    int left = 2*i+1;
+    int right = 2*i+2;
+    int maxIndex = i;
+    if(left<n && v[left]>v[maxIndex])
     {
-        string name;
-        int marks;
-        cin>>name>>marks;
-        pq.push(make_pair(name,marks));
+        maxIndex = left;
     }
 
-    while(!pq.empty())
+    if(right<n && v[right]>v[maxIndex])
     {
-        cout<<pq.top().first<<" "<<pq.top().second<<endl;
-        pq.pop();
+        maxIndex = right;
     }
+
+    if(maxIndex!=i)
+    {
+        swap(v[i],v[maxIndex]);
+        heapify(maxIndex,v,n);
+    }
+}
+
+void heapSort(vector<int>&v)
+{
+    int n = v.size();
+
+    //step 1 : build max heap
+    for(int i = n/2-1; i>=0; i--)
+    {
+        heapify(i,v,n);
+    }
+
+    //step 2: placing to correct positions  
+    for(int i = n-1; i>=0 ; i--)
+    {
+        swap(v[0], v[i]);
+        heapify(0,v,i);
+    }
+}
+
+
+int main()
+{
+    // 3.PQ for pairs: 
+    // priority_queue<pair<string,int>,vector<pair<string,int>>,comparePairs> pq;
+
+
+
+    //4. Heap sort 
+    vector<int>v = {10,20,5,6,1,8,9};
+    heapSort(v);
+    for(auto x:v)
+    {
+        cout<<x<<" ";
+    }
+    cout<<endl;
+
     return 0;
 }
